@@ -1,10 +1,10 @@
 use std::{rc::Rc, sync::Arc};
 
-#[cfg(feature = "json")]
+#[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Default, PartialEq)]
-#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Role {
     Admin,
     Standard,
@@ -13,16 +13,16 @@ pub enum Role {
 }
 
 #[derive(Debug, Clone, Default, PartialEq)]
-#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 struct DB {}
 
 #[derive(Debug, Clone, Default, PartialEq)]
-#[cfg_attr(feature = "json", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct User {
     id: u32,
     name: String,
     role: Role,
-    #[cfg_attr(feature = "json", serde(skip))]
+    #[cfg_attr(feature = "serde", serde(skip))]
     db: Arc<DB>,
 }
 
@@ -48,10 +48,10 @@ fn main() {
 
     let user_str = "{ \"id\": 123, \"name\": \"Bogdan\", \"role\": \"Admin\" }";
 
-    #[cfg(feature = "json")]
+    #[cfg(feature = "serde")]
     let user: User = serde_json::from_str(&user_str).unwrap();
 
-    #[cfg(feature = "json")]
+    #[cfg(feature = "serde")]
     println!("{:?}", user);
 }
 

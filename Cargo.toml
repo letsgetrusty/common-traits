@@ -10,4 +10,4 @@ serde = { version = "1.0", features = ["derive", "rc"], optional = true }
 serde_json = "1.0"
 
 [features]
-json = ["dep:serde"]
+serde = ["dep:serde"]
